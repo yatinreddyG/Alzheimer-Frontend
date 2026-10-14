@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}Home - Alzheimer's Disease Detection{% endblock %}
+{% block content %}
+
+<section class="hero-section">
+  <div class="container py-5">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6">
+        <div class="eyebrow">MRI Brain Scan Analysis &middot; CNN + Grad-CAM</div>
+        <h1 class="headline-xl mb-3">Decisions for Alzheimer&rsquo;s Clarity</h1>
+        <p class="lead" style="color: var(--muted); max-width: 30rem;">
+          Upload an MRI brain scan and get a classified disease stage, a confidence
+          score, and a Grad-CAM heatmap explaining exactly what the model saw —
+          in under two seconds.
+        </p>
+        <div class="d-flex gap-3 flex-wrap mt-4">
+          <a href="{{ url_for('predict_route') }}" class="btn btn-primary btn-lg px-4">
+            <i class="fa-solid fa-upload me-2"></i>Upload MRI Scan
+          </a>
+          <a href="{{ url_for('about') }}" class="btn btn-outline-secondary btn-lg px-4">Learn More</a>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-visual">
+          <span class="orbit-badge b1"><i class="fa-solid fa-check"></i>CNN + EfficientNetB0</span>
+          <span class="orbit-badge b2"><i class="fa-solid fa-check"></i>Grad-CAM Explainable</span>
+          <span class="orbit-badge b3"><i class="fa-solid fa-check"></i>4 Disease Stages</span>
+          <span class="orbit-badge b4"><i class="fa-solid fa-check"></i>&lt; 2s Response</span>
+          <div class="hero-scan-ring">
+            <img src="{{ url_for('static', filename='img/hero-mri.jpg') }}" alt="Sample MRI brain scan">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="row mb-4">
+    <div class="col">
+      <div class="eyebrow">How It Works</div>
+      <h2 class="headline-lg">From upload to explainable prediction</h2>
+      <p class="text-muted" style="max-width: 34rem;">A simple, four-step pipeline behind every scan you submit.</p>
+    </div>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="feature-card h-100">
+        <div class="feature-icon"><i class="fa-solid fa-file-image"></i></div>
+        <h5>1. Upload</h5>
+        <p class="text-muted small mb-0">Upload a JPG/PNG MRI brain scan through the web interface.</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="feature-card h-100">
+        <div class="feature-icon"><i class="fa-solid fa-sliders"></i></div>
+        <h5>2. Preprocess</h5>
+        <p class="text-muted small mb-0">The image is resized, normalized, and prepared for the model.</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="feature-card h-100">
+        <div class="feature-icon"><i class="fa-solid fa-diagram-project"></i></div>
+        <h5>3. Classify</h5>
+        <p class="text-muted small mb-0">A CNN / EfficientNetB0 model predicts the Alzheimer's stage with a confidence score.</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="feature-card h-100">
+        <div class="feature-icon"><i class="fa-solid fa-fire"></i></div>
+        <h5>4. Explain</h5>
+        <p class="text-muted small mb-0">Grad-CAM highlights the brain regions that most influenced the prediction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" style="background: var(--bg-soft); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container py-3">
+    <div class="row mb-4">
+      <div class="col">
+        <div class="eyebrow">Classification Output</div>
+        <h2 class="headline-lg">Four stages. One model.</h2>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="stage-card">
+          <div class="stage-index">01</div>
+          <h6 class="fw-bold mb-1"><span class="stage-dot" style="background:#22c55e;"></span>Non-Demented</h6>
+          <p class="text-muted small mb-0">No significant signs of Alzheimer's-related structural change.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="stage-card">
+          <div class="stage-index">02</div>
+          <h6 class="fw-bold mb-1"><span class="stage-dot" style="background:#eab308;"></span>Very Mild Demented</h6>
+          <p class="text-muted small mb-0">Subtle early structural changes consistent with the earliest stage.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="stage-card">
+          <div class="stage-index">03</div>
+          <h6 class="fw-bold mb-1"><span class="stage-dot" style="background:#f97316;"></span>Mild Demented</h6>
+          <p class="text-muted small mb-0">Moderate structural changes consistent with the mild stage.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="stage-card">
+          <div class="stage-index">04</div>
+          <h6 class="fw-bold mb-1"><span class="stage-dot" style="background:#ef4444;"></span>Moderate Demented</h6>
+          <p class="text-muted small mb-0">Pronounced structural changes consistent with the advanced stage.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="info-card h-100">
+        <h5><i class="fa-solid fa-shield-heart text-primary me-2"></i>Why It Matters</h5>
+        <p class="text-muted mb-0">
+          Alzheimer's disease affects millions worldwide. Manual MRI interpretation is
+          time-consuming and dependent on specialist availability. This system supports —
+          not replaces — clinicians with fast, consistent, and interpretable predictions.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="info-card h-100">
+        <h5><i class="fa-solid fa-eye text-primary me-2"></i>Explainable, Not a Black Box</h5>
+        <p class="text-muted mb-0">
+          Every prediction ships with a Grad-CAM heatmap overlay, so the regions driving the
+          model's decision are visible — improving transparency and clinical trust.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

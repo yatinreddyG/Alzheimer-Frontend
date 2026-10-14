@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Upload &amp; Predict - Alzheimer's Disease Detection{% endblock %}
+{% block content %}
+
+<section class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="text-center mb-4">
+        <div class="eyebrow justify-content-center">Step 1 of 1</div>
+        <h2 class="headline-lg">Upload an MRI Brain Scan</h2>
+        <p class="text-muted">Accepted formats: JPG, JPEG, PNG &middot; Maximum size: 10 MB</p>
+      </div>
+
+      <div class="upload-card">
+        <form action="{{ url_for('predict_route') }}" method="post" enctype="multipart/form-data" id="uploadForm">
+          <div class="upload-dropzone" id="dropzone">
+            <input class="d-none" type="file" id="mri_image" name="mri_image" accept=".jpg,.jpeg,.png" required>
+            <div id="dropzoneContent">
+              <i class="fa-solid fa-cloud-arrow-up fa-2x mb-3 text-primary"></i>
+              <p class="mb-1 fw-semibold">Drag &amp; drop your MRI image here</p>
+              <p class="text-muted small mb-3">or click below to browse</p>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="browseBtn">Choose File</button>
+            </div>
+            <div id="previewWrapper" class="d-none text-center">
+              <img id="previewImg" src="" alt="Preview" class="preview-img mb-2">
+              <p id="fileName" class="small text-muted mb-0"></p>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg w-100 mt-4" id="predictBtn" disabled>
+            <i class="fa-solid fa-upload me-2"></i>Upload MRI Scan
+          </button>
+        </form>
+      </div>
+
+      <div class="alert alert-info mt-4 small">
+        <i class="fa-solid fa-circle-info me-2"></i>
+        This tool is intended for academic / clinical decision-support demonstration only
+        and does not replace evaluation by a qualified medical professional.
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+{% block scripts %}
+<script>
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('mri_image');
+  const browseBtn = document.getElementById('browseBtn');
+  const predictBtn = document.getElementById('predictBtn');
+  const previewWrapper = document.getElementById('previewWrapper');
+  const dropzoneContent = document.getElementById('dropzoneContent');
+  const previewImg = document.getElementById('previewImg');
+  const fileName = document.getElementById('fileName');
+
+  browseBtn.addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('click', (e) => { if (e.target === dropzone) fileInput.click(); });
+
+  ['dragover', 'dragenter'].forEach(evt =>
+    dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.add('dragover'); })
+  );
+  ['dragleave', 'drop'].forEach(evt =>
+    dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); })
+  );
+  dropzone.addEventListener('drop', (e) => {
+    if (e.dataTransfer.files.length) {
+      fileInput.files = e.dataTransfer.files;
+      handleFile(fileInput.files[0]);
+    }
+  });
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length) handleFile(fileInput.files[0]);
+  });
+
+  function handleFile(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      previewImg.src = e.target.result;
+      fileName.textContent = file.name;
+      dropzoneContent.classList.add('d-none');
+      previewWrapper.classList.remove('d-none');
+      predictBtn.disabled = false;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.getElementById('uploadForm').addEventListener('submit', () => {
+    predictBtn.disabled = true;
+    predictBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Uploading...';
+  });
+</script>
+{% endblock %}

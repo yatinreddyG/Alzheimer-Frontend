@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}About - Alzheimer's Disease Detection{% endblock %}
+{% block content %}
+
+<section class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+
+      <div class="eyebrow">About The Project</div>
+      <h2 class="headline-lg mb-3">Built for early, explainable diagnosis</h2>
+      <p class="text-muted">
+        <strong>Alzheimer's Disease Detection and Classification from MRI Brain Scans Using
+        Convolutional Neural Networks (CNN)</strong> is an intelligent system designed to
+        assist in the early detection and accurate classification of Alzheimer's disease
+        through automated analysis of MRI brain scans.
+      </p>
+      <p class="text-muted">
+        Alzheimer's disease is a progressive neurological disorder that affects memory and
+        cognitive function. Conventional diagnosis relies on manual interpretation of MRI
+        scans by medical experts, which can be time-consuming and prone to human error. This
+        system uses Convolutional Neural Networks to automatically extract features from MRI
+        brain images and classify them into <strong>Non-Demented</strong>,
+        <strong>Very Mild Demented</strong>, <strong>Mild Demented</strong>, and
+        <strong>Moderate Demented</strong> categories, while Gradient-weighted Class
+        Activation Mapping (Grad-CAM) provides visual explanations for every prediction.
+      </p>
+
+      <div class="row g-4 my-4">
+        <div class="col-md-6">
+          <div class="info-card h-100">
+            <h5><i class="fa-solid fa-bullseye text-primary me-2"></i>Objective</h5>
+            <p class="text-muted mb-0">
+              Develop an automated, explainable, and web-deployable system that assists
+              healthcare professionals in diagnosing Alzheimer's disease faster and more
+              consistently than manual MRI review alone.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="info-card h-100">
+            <h5><i class="fa-solid fa-layer-group text-primary me-2"></i>Approach</h5>
+            <p class="text-muted mb-0">
+              A custom CNN and a fine-tuned EfficientNetB0 transfer-learning model are
+              trained on preprocessed, augmented MRI images, with the best-performing model
+              deployed behind a Flask web application.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="fw-bold mt-5 mb-3">Technologies Used</h4>
+      <div class="d-flex flex-wrap gap-2 mb-4">
+        {% for tech in ["Python", "TensorFlow", "Keras", "OpenCV", "NumPy", "Pandas",
+                         "Scikit-Learn", "Matplotlib", "Flask", "Bootstrap", "Grad-CAM"] %}
+        <span class="tech-pill">{{ tech }}</span>
+        {% endfor %}
+      </div>
+
+      <h4 class="fw-bold mt-5 mb-3">Team &amp; Institution</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead class="table-light">
+            <tr><th>Roll Number</th><th>Name</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>23B81A05GY</td><td>Mogali Sri Charan</td></tr>
+            <tr><td>23B81A05GZ</td><td>Almareddy Sriram Reddy</td></tr>
+            <tr><td>23B81A05HE</td><td>Gujjula Yatin Reddy</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-muted small mb-0">
+        Department of Computer Science Engineering, CVR College of Engineering &middot;
+        Class: IV Year CSE, Section H &middot; Academic Year 2026&ndash;2027
+      </p>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
